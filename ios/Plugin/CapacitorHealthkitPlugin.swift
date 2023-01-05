@@ -446,27 +446,20 @@ public class CapacitorHealthkitPlugin: CAPPlugin {
             call.resolve()
         }
     }
-    let formatter = DateFormatter()
-    formatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
+    
     @objc func queryHKitSampleType(_ call: CAPPluginCall) {
+        let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-MM-dd HH:mm:ss Z"
         guard let _sampleName = call.options["sampleName"] as? String else {
             return call.reject("Must provide sampleName")
         }
-        // guard let startDateString = call.options["startDate"] as? String else {
-        //     return call.reject("Must provide startDate")
-        // }
-        // guard let endDateString = call.options["endDate"] as? String else {
-        //     return call.reject("Must provide endDate")
-        // }
-        guard let startDateString = formatter.date(from:call.options["startDate"] as! String) else {
+        guard let _startDate = formatter.date(from:call.options["startDate"] as! String) else {
             return call.reject("Must provide startDate")
         }
 
-        guard let endDateString = formatter.date(from:call.options["endDate"] as! String) else {
+        guard let _endDate = formatter.date(from:call.options["endDate"] as! String) else {
             return call.reject("Must provide endDate")
         }
-        let _startDate = getDateFromString(inputDate: startDateString)
-        let _endDate = getDateFromString(inputDate: endDateString)
         guard let _limit = call.options["limit"] as? Int else {
             return call.reject("Must provide limit")
         }
